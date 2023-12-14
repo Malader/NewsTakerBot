@@ -1,8 +1,6 @@
 import telethon
 from telethon import Button
 
-# import message_handler
-
 
 class CallbackQueryHandler:
     def __init__(self, bot_client, subscription_manager, button_manager, text_processor, news_fetcher, message_handler):

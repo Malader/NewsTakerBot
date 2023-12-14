@@ -4,10 +4,7 @@ import telethon
 from telethon import events, Button
 from telethon.tl.types import Channel
 
-# import subscription_manager
-from NewsFetcher import NewsFetcher
-# from text_processor import TextProcessor
-# from subscription_manager import SubscriptionManager
+from services.NewsFetcher import NewsFetcher
 
 
 class MessageHandler:

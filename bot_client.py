@@ -1,11 +1,11 @@
 from telethon import TelegramClient, events
 
-from ButtonManager import ButtonManager
-from NewsFetcher import NewsFetcher
-from message_handler import MessageHandler
-from subscription_manager import SubscriptionManager
-from CallbackQueryHandler import CallbackQueryHandler
-from text_processor import TextProcessor
+from utils.ButtonManager import ButtonManager
+from services.NewsFetcher import NewsFetcher
+from handlers.message_handler import MessageHandler
+from models.subscription_manager import SubscriptionManager
+from handlers.CallbackQueryHandler import CallbackQueryHandler
+from services.text_processor import TextProcessor
 
 
 class BotClient:
@@ -36,8 +36,10 @@ class BotClient:
 
         self.message_handler.register_handlers()
 
-        self.news_fetcher = NewsFetcher(self.user_client, self.text_processor,
-            self.subscription_manager_instance, self.message_handler)
+        self.news_fetcher = NewsFetcher(
+            self.user_client, self.text_processor,
+            self.subscription_manager_instance, self.message_handler
+        )
 
         callback_query_handler = CallbackQueryHandler(
             self.bot_client, self.subscription_manager_instance,

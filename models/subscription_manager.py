@@ -16,7 +16,6 @@ class SubscriptionManager:
             'Здоровье': '💊',
             'Образование': '🎓'
         }
-        #self.user_interests = defaultdict(list)
         self.user_interests = {}
 
     def add_subscription(self, user_id, channel):

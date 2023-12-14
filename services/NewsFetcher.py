@@ -1,7 +1,3 @@
-# import message_handler
-# import message_handler
-
-
 class NewsFetcher:
     def __init__(self, user_client, text_processor, subscription_manager, message_handler):
         self.user_client = user_client
