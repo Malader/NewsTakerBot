@@ -1,9 +1,12 @@
-class NewsFetcher:
-    def __init__(self, user_client, text_processor, subscription_manager, message_handler):
+from Abstract.AbstractNewsFetcher import AbstractNewsFetcher
+
+
+class NewsFetcher(AbstractNewsFetcher):
+    def __init__(self, user_client, text_processor_interface, subscription_manager_interface, message_handler_interface):
         self.user_client = user_client
-        self.text_processor = text_processor
-        self.subscription_manager = subscription_manager
-        self.message_handler = message_handler
+        self.text_processor = text_processor_interface
+        self.subscription_manager = subscription_manager_interface
+        self.message_handler = message_handler_interface
 
     async def fetch_telegram_channel_messages(self, user_id):
         self.message_handler.ensure_user_subscriptions_initialized(user_id)

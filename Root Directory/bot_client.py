@@ -1,21 +1,33 @@
 from telethon import TelegramClient, events
 
+from Database.Database import Database
+from models.UserInterestManager import UserInterestManager
+from models.UserSubscriptionManager import UserSubscriptionManager
 from utils.ButtonManager import ButtonManager
 from services.NewsFetcher import NewsFetcher
 from handlers.message_handler import MessageHandler
-from models.subscription_manager import SubscriptionManager
+#from models.subscription_manager import SubscriptionManager
 from handlers.CallbackQueryHandler import CallbackQueryHandler
 from services.text_processor import TextProcessor
 
 
 class BotClient:
-    def __init__(self, api_id, api_hash, bot_token):
+    def __init__(self, api_id, api_hash, bot_token, db_path):
         self.news_fetcher = None
         self.user_client = TelegramClient('user_session', api_id, api_hash)
         self.bot_client = TelegramClient('bot_session', api_id, api_hash)
         # Создание экземпляров менеджеров
         self.bot_token = bot_token
-        self.subscription_manager_instance = SubscriptionManager()
+
+        db_instance = Database(db_path)
+
+        self.subscription_manager_instance = UserSubscriptionManager(db_instance)
+        self.interest_manager_instance = UserInterestManager(db_instance,
+                                                             self.subscription_manager_instance.theme_emojis)
+
+        #self.subscription_manager_instance = SubscriptionManager(db_instance)
+        #self.subscription_manager_instance = SubscriptionManager(self.db)
+
         self.button_manager_instance = ButtonManager(self.subscription_manager_instance)
         self.text_processor = TextProcessor()
         # Создание экземпляра MessageHandler с передачей необходимых экземпляров менеджеров
@@ -42,7 +54,7 @@ class BotClient:
         )
 
         callback_query_handler = CallbackQueryHandler(
-            self.bot_client, self.subscription_manager_instance,
+            self.bot_client, self.subscription_manager_instance, self.interest_manager_instance,
             self.button_manager_instance, self.text_processor_instance,
             self.news_fetcher, self.message_handler
         )
