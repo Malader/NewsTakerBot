@@ -2,3 +2,4 @@
 venv/
 myenv/
 __pycache__/
+*.session/
