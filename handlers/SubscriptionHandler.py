@@ -1,13 +1,13 @@
 class SubscriptionHandler:
-    def __init__(self, subscription_manager, button_manager):
-        self.subscription_manager = subscription_manager
+    def __init__(self, interest_manager, button_manager):
+        self.interest_manager = interest_manager
         self.button_manager = button_manager
 
     async def handle(self, event, bot_client):
         user_id = event.sender_id
 
-        all_interests = list(self.subscription_manager.theme_emojis.keys())
-        subscribed_interests = self.subscription_manager.get_user_interests(user_id)
+        all_interests = list(self.interest_manager.theme_emojis.keys())
+        subscribed_interests = self.interest_manager.get_user_interests(user_id)
 
         # Проверяем, подписан ли пользователь на все темы
         if len(subscribed_interests) == len(all_interests):

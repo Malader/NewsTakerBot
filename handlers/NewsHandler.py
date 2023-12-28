@@ -2,8 +2,9 @@ from telethon import Button
 
 
 class NewsHandler:
-    def __init__(self, subscription_manager, news_fetcher, text_processor):
+    def __init__(self, subscription_manager, user_interest_manager, news_fetcher, text_processor):
         self.subscription_manager = subscription_manager
+        self.user_interest_manager = user_interest_manager
         self.news_fetcher = news_fetcher
         self.text_processor = text_processor
 
@@ -17,7 +18,7 @@ class NewsHandler:
             return
 
         # Если у пользователя нет интересов для фильтрации новостей
-        interests = self.subscription_manager.get_user_interests(user_id)
+        interests = self.user_interest_manager.get_user_interests(user_id)
         if not interests:
             buttons = [
                 [Button.inline("Показать все новости без фильтрации по темам", "show_all_news")],

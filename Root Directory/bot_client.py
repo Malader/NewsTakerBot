@@ -6,14 +6,12 @@ from models.UserSubscriptionManager import UserSubscriptionManager
 from utils.ButtonManager import ButtonManager
 from services.NewsFetcher import NewsFetcher
 from handlers.message_handler import MessageHandler
-#from models.subscription_manager import SubscriptionManager
 from handlers.CallbackQueryHandler import CallbackQueryHandler
 from services.text_processor import TextProcessor
 
 
 class BotClient:
     def __init__(self, api_id, api_hash, bot_token, db_path):
-        self.news_fetcher = None
         self.user_client = TelegramClient('user_session', api_id, api_hash)
         self.bot_client = TelegramClient('bot_session', api_id, api_hash)
         # Создание экземпляров менеджеров
@@ -22,16 +20,8 @@ class BotClient:
         db_instance = Database(db_path)
 
         self.subscription_manager_instance = UserSubscriptionManager(db_instance)
-        self.interest_manager_instance = UserInterestManager(db_instance,
-                                                             self.subscription_manager_instance.theme_emojis)
-
-        #self.subscription_manager_instance = SubscriptionManager(db_instance)
-        #self.subscription_manager_instance = SubscriptionManager(self.db)
-
-        self.button_manager_instance = ButtonManager(self.subscription_manager_instance)
-        self.text_processor = TextProcessor()
-        # Создание экземпляра MessageHandler с передачей необходимых экземпляров менеджеров
-        self.message_handler = None
+        self.interest_manager_instance = UserInterestManager(db_instance, self.subscription_manager_instance.theme_emojis)
+        self.button_manager_instance = ButtonManager(self.interest_manager_instance)
         self.text_processor_instance = TextProcessor()
 
     async def start(self):
@@ -42,7 +32,7 @@ class BotClient:
 
         self.message_handler = MessageHandler(
             self.user_client, self.bot_client,
-            self.subscription_manager_instance,
+            self.subscription_manager_instance, self.interest_manager_instance,
             self.button_manager_instance, self.text_processor_instance
         )
 

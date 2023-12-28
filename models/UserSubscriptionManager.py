@@ -49,28 +49,6 @@ class UserSubscriptionManager:
             self.subscription_repository.add_user_channels(user_id, list(self.default_channels))
         return set(self.subscription_repository.get_user_channels(user_id))
 
-    def add_user_interest(self, user_id, interest):
-        """Добавление интереса пользователя."""
-        current_interests = self.subscription_repository.get_user_interests(user_id)
-        if interest not in current_interests:
-            current_interests.append(interest)
-            self.subscription_repository.add_user_interests(user_id, current_interests)
-
-    def remove_user_interest(self, user_id, interest):
-        """Удаление интереса пользователя."""
-        current_interests = self.subscription_repository.get_user_interests(user_id)
-        if interest in current_interests:
-            current_interests.remove(interest)
-            self.subscription_repository.add_user_interests(user_id, current_interests)
-
-    def clear_user_interests(self, user_id):
-        """Очищение всех интересов пользователя."""
-        self.subscription_repository.clear_user_interests(user_id)
-
-    def get_user_interests(self, user_id):
-        """Получение списка интересов пользователя."""
-        return self.subscription_repository.get_user_interests(user_id)
-
     def set_user_subscriptions(self, user_id, new_subscriptions):
         """Установка новых подписок для пользователя."""
         self.subscription_repository.add_user_channels(user_id, list(new_subscriptions))
