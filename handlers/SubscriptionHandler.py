@@ -3,7 +3,7 @@ class SubscriptionHandler:
         self.interest_manager = interest_manager
         self.button_manager = button_manager
 
-    async def handle(self, event, bot_client):
+    async def handle(self, event):
         user_id = event.sender_id
 
         all_interests = list(self.interest_manager.theme_emojis.keys())

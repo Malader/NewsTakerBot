@@ -67,7 +67,7 @@ class MessageHandler:
 
         @self.bot_client.on(events.NewMessage(pattern='/subscribe'))
         async def handle_subscribe(event):
-            await self.subscription_handler.handle(event, self.bot_client)
+            await self.subscription_handler.handle(event)
 
         @self.bot_client.on(events.CallbackQuery(data=b'subscribe_all'))
         async def handle_subscribe_all(event):
