@@ -8,7 +8,6 @@ class RemoveChannelHandler:
 
     async def handle(self, event):
         user_id = event.sender_id
-        # В этом месте предполагается, что `channel_to_remove` уже извлечён из `event`
         channel_to_remove = '@' + event.pattern_match.group(1).decode('utf-8')
 
         user_subscriptions = self.subscription_manager.get_user_subscriptions(user_id)

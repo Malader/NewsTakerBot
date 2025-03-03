@@ -14,7 +14,6 @@ class BotClient:
     def __init__(self, api_id, api_hash, bot_token, db_path):
         self.user_client = TelegramClient('user_session', api_id, api_hash)
         self.bot_client = TelegramClient('bot_session', api_id, api_hash)
-        # Создание экземпляров менеджеров
         self.bot_token = bot_token
 
         db_instance = Database(db_path)

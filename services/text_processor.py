@@ -103,7 +103,6 @@ class TextProcessor:
         }
 
     def get_interest_keywords(self):
-        # Example: Return a list of keywords that represent user interests
         return ['Спорт', 'Политика', 'СВО', 'Экономика', 'Наука', 'Технологии', 'Культура', 'Здоровье', 'Образование']
 
     def preprocess_text(self, text):
@@ -143,10 +142,10 @@ class TextProcessor:
                 message_content = msg.text.lower()
                 message_lines = message_content.split('\n')
                 message_title = message_lines[0] if message_lines else ''
-                added_to_filtered = False  # Флаг для проверки, было ли сообщение уже добавлено
+                added_to_filtered = False
 
                 if prev_message_content and message_content in prev_message_content:
-                    print(f"Message skipped (duplicate): {msg.id}")  # Логируем причину пропуска сообщения
+                    print(f"Message skipped (duplicate): {msg.id}")
                     continue
 
                 for interest in interests:
@@ -156,7 +155,7 @@ class TextProcessor:
                         if not added_to_filtered:
                             filtered_messages.append(msg)
                             added_to_filtered = True  # Помечаем, что сообщение добавлено
-                            print(f"Message filtered by keyword '{pattern}': {msg.text}")  # Логируем для отладки
+                            print(f"Message filtered by keyword '{pattern}': {msg.text}")
                         prev_message_content = message_content
 
         return filtered_messages

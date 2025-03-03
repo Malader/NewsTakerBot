@@ -2,9 +2,9 @@ from bot_client import BotClient
 
 
 async def main():
-    api_id = '25593200'
-    api_hash = '688f17ed59a8a648453670a206429bc5'
-    bot_token = '6487529586:AAHFlS-wEb8tqnV-zefMAQF9G4I9OUzjrWE'
+    api_id = '' # Сюда ID API
+    api_hash = '' # Сюда хеш API
+    bot_token = '' # Сюда токен бота
     db_path = "../tgbotdatabase.sqlite"
     bot_client = BotClient(api_id, api_hash, bot_token, db_path)
     await bot_client.start()
